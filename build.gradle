@@ -1,0 +1,65 @@
+buildscript {
+    ext.kotlin_version = '1.2.30'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id 'java' // idk
+    id 'idea' // idk
+    id 'application' // for ./gradlew run
+    id 'com.github.johnrengelman.shadow' version '2.0.1' // for ./gradlew shadowJar
+    id 'com.sedmelluq.jdaction' version "1.0.2" // warns when we forget a .queue() or .complete() or .submit()
+}
+
+apply plugin: 'kotlin' // it doesn't work when in plugins{} for some reason
+
+group 'com.skunity'
+version '0.1'
+
+mainClassName = "com.skunity.ducky.MainKt"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile 'net.dv8tion:JDA:3.6.0_354'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+        attributes 'Name': name
+        attributes 'Specification-Title': name
+        attributes 'Specification-Version': version
+        attributes 'Specification-Vendor': 'Ducky Devs'
+        attributes 'Implementation-Title': name
+        attributes 'Implementation-Version': version
+        attributes 'Implementation-Vendor': 'Ducky Devs'
+    }
+}
