@@ -10,6 +10,6 @@ First, copy `config.json.example` to `config.json`, fill it in, then:
 ## Config explanation
 * `token` - a string, get it from [here](https://discordapp.com/developers/applications/me/)
 * `accountType` - a string, either `BOT` or `CLIENT`
-* `botName` - a string - a single, lowercase word, used by the command parser as one of the valid options for %bot%
+* `botName` - a string - a single word used by the command parser as one of the valid options for %bot%
 
 Licensed under [The GNU General Public License v3.0](LICENSE.md)
