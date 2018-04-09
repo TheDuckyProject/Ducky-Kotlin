@@ -1,4 +1,5 @@
 {
     "token": "1234",
-    "accountType": "BOT"
+    "accountType": "BOT",
+    "botName": "Ducky"
 }
