@@ -1,0 +1,20 @@
+package com.skunity.ducky.cmdapi
+
+import net.dv8tion.jda.core.entities.Message
+
+// TODO docs
+abstract class DuckyCommand {
+
+    lateinit var name: String
+
+    lateinit var description: String
+
+    /**
+     * The pattern needs to be fully lowercase
+     */
+    lateinit var syntax: List<String>
+
+    var minRank: Rank = Rank.Everyone
+
+    abstract fun execute(msg: Message, args: List<Any>)
+}

@@ -36,7 +36,8 @@ object Ducky {
     }
 }
 
-class Config(val token: String, val accountType: String, val botName: String)
+class Config(val token: String, val accountType: String, val botName: String,
+             val botAdminIds: List<String>, val botModIds: List<String>)
 
 
 // ***** Some global stuff *****
@@ -123,4 +124,10 @@ fun ClosedRange<Int>.random() = random.nextInt((endInclusive + 1) - start) + sta
  * An extension method which returns `Name#discrim`, like `Nicofisi#4467`,
  * which doesn't technically mention the user when sent in a message
  */
-fun User.tag() = "$name#$discriminator"
+val User.tag
+    get() = "$name#$discriminator"
+
+/**
+ * @return a random element from the list
+ */
+fun <E> List<E>.random(): E = get(random.nextInt(size))
