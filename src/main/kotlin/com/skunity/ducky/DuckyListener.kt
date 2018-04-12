@@ -1,9 +1,5 @@
 package com.skunity.ducky
 
-import com.skunity.ducky.cmdapi.DuckyCommand
-import com.skunity.ducky.commands.CmdHi
-import com.skunity.ducky.commands.CmdJavaGuys
-import com.skunity.ducky.commands.CmdSay
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
@@ -12,9 +8,6 @@ object DuckyListener : ListenerAdapter() {
     private val whitespacePattern = Regex("\\s")
     private val ignoredWordEndingsPattern = Regex("[!?.;,:<>()\\[\\]{}]+$")
     private val botPattern = Regex(Ducky.config.botName.toLowerCase().map { "$it+" }.joinToString(""))
-
-    // TODO adding commands from the `commands` package to this list with reflection perhaps?
-    private val commands: List<DuckyCommand> = listOf(CmdHi, CmdSay, CmdJavaGuys())
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         val msg = event.message
@@ -32,7 +25,7 @@ object DuckyListener : ListenerAdapter() {
         // ^ brackets mainly because they can be used as emoticons
         val splitNoPunctuation = msgSplit.map { it.replace(ignoredWordEndingsPattern, "") }
 
-        commands.forEach {
+        allCommands.forEach {
             var parsedArgs = emptyList<Any>()
 
             val matchedPatternIndex = it.syntax.indexOfFirst {

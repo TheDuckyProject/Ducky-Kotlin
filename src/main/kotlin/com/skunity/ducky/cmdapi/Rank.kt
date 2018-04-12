@@ -51,6 +51,7 @@ abstract class Rank private constructor() {
     class WithPermission(private val permission: Permission) : Rank() {
         override fun checkInGuild(member: Member, channel: TextChannel): Boolean =
                 member.hasPermission(channel, permission)
+                        || BotAdmin.checkInGuild(member, channel) // bot admins override permissions
 
         // if a guild permission is needed to perform a command, it means that the command performs
         // some guild-related task, that isn't supported in direct messages, hence why we always return false
