@@ -13,11 +13,12 @@ import java.util.Random;
  * @author NanoDankster
  */
 public class CmdJavaGuys extends DuckyCommand {
-    CmdJavaGuys() {
+
+    public CmdJavaGuys() {
         name = "Java command";
         description = "For *java guys*.";
         syntax = CollectionsKt.listOf("java guys", "*java guys*");
-        minRank = Rank.EveryoneOnGuilds;
+        minRank = Rank.EveryoneOnGuilds.INSTANCE;
     }
 
     @Override

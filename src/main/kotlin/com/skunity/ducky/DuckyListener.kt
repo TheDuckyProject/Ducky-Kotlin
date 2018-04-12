@@ -2,6 +2,8 @@ package com.skunity.ducky
 
 import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.commands.CmdHi
+import com.skunity.ducky.commands.CmdJavaGuys
+import com.skunity.ducky.commands.CmdSay
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
@@ -12,7 +14,7 @@ object DuckyListener : ListenerAdapter() {
     private val botPattern = Regex(Ducky.config.botName.toLowerCase().map { "$it+" }.joinToString(""))
 
     // TODO adding commands from the `commands` package to this list with reflection perhaps?
-    private val commands: List<DuckyCommand> = listOf(CmdHi)
+    private val commands: List<DuckyCommand> = listOf(CmdHi, CmdSay, CmdJavaGuys())
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         val msg = event.message
@@ -27,7 +29,7 @@ object DuckyListener : ListenerAdapter() {
         val msgSplit = raw.split(whitespacePattern).filter { it.trim().isNotEmpty() }
 
         // any word can end with an unlimited amount of !?.;,:<>()[]{} and it will be ignored by the matching system
-        // ^ brackets mainly because they can be used as emoticons xD // todo it's a christian documentation
+        // ^ brackets mainly because they can be used as emoticons
         val splitNoPunctuation = msgSplit.map { it.replace(ignoredWordEndingsPattern, "") }
 
         commands.forEach {
@@ -64,7 +66,12 @@ object DuckyListener : ListenerAdapter() {
                                 TODO()
                             }
                             "%string%" -> {
-                                TODO()
+                                parsedArgs += if (index == syntaxSplit.size - 1) { // if this %string% is the last word in the pattern
+                                    msgSplit.drop(index).joinToString(" ")
+                                } else {
+                                    wordToParse
+                                }
+                                true // any string matches %string%
                             }
                             "%biginteger%" -> {
                                 TODO()
@@ -85,7 +92,7 @@ object DuckyListener : ListenerAdapter() {
                 }
             }
 
-            if (matchedPatternIndex == -1) return // else the syntax was matched, and we want to execute it
+            if (matchedPatternIndex == -1) return@forEach // else the syntax was matched, and we want to execute it
 
             val matchedPattern = it.syntax[matchedPatternIndex]
 
