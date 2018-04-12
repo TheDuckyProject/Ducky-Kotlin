@@ -6,6 +6,9 @@ import com.skunity.ducky.random
 import com.skunity.ducky.sendWithTyping
 import net.dv8tion.jda.core.entities.Message
 
+/**
+ * @author Nicofisi
+ */
 object CmdHi : DuckyCommand() {
     init {
         name = "Say Hi"
@@ -14,7 +17,7 @@ object CmdHi : DuckyCommand() {
         minRank = Rank.Everyone
     }
 
-    override fun execute(msg: Message, args: List<Any>) {
-        msg.channel.sendWithTyping("${listOf("Hi there", "Howdy", "Hiya", "Hey", "Hi").random()} ${msg.author.asMention}!")
+    override fun execute(message: Message, arguments: List<Any>) {
+        message.channel.sendWithTyping("${listOf("Hi there", "Howdy", "Hiya", "Hey", "Hi").random()} ${message.author.asMention}!")
     }
 }

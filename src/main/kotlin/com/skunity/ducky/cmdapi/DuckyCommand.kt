@@ -16,5 +16,5 @@ abstract class DuckyCommand {
 
     lateinit var minRank: Rank
 
-    abstract fun execute(msg: Message, args: List<Any>)
+    abstract fun execute(message: Message, arguments: List<Any>)
 }
