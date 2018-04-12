@@ -65,13 +65,13 @@ val random = Random()
  *
  * max(300, content length * (random integer between 20 and 80)) in milliseconds,
  *
- * Where content length is the length of the "normal" content (so not counting anything in embeds).
+ * where content length is the length of the "normal" content (so not counting anything in embeds).
  * So, if a message has no text or only a few characters, it will always take 300 milliseconds to send it
  *
  * @param msg The message to send
  */
 fun MessageChannel.sendWithTyping(msg: Message) {
-    // msg.contentRaw is empty for messages with only with an embed, we send them after 300ms..
+    // msg.contentRaw is empty for messages with only an embed, we send them after 300ms..
     // .. we don't really send anything after **less** than 300 milliseconds of typing
     val millisToTake = Math.max(300, msg.contentRaw.length * (20..80).random()).toLong()
     val endMillis = System.currentTimeMillis() + millisToTake

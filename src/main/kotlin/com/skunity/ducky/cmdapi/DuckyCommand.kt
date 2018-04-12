@@ -14,7 +14,7 @@ abstract class DuckyCommand {
      */
     lateinit var syntax: List<String>
 
-    var minRank: Rank = Rank.Everyone
+    lateinit var minRank: Rank
 
     abstract fun execute(msg: Message, args: List<Any>)
 }
