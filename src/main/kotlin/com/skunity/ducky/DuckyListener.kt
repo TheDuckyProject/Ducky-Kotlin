@@ -1,8 +1,11 @@
 package com.skunity.ducky
 
+import net.dv8tion.jda.core.entities.Guild
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
+import java.math.BigDecimal
+import java.math.BigInteger
 
 object DuckyListener : ListenerAdapter() {
     private val whitespacePattern = Regex("\\s")
@@ -14,6 +17,7 @@ object DuckyListener : ListenerAdapter() {
         val author = event.author
         val channel = event.channel
         val raw = msg.contentRaw
+        val guild: Guild? = event.guild
 
         // TODO if the user is ignored, don't run the code below
 
@@ -56,10 +60,36 @@ object DuckyListener : ListenerAdapter() {
                                         wordToParse === "🦆" // :duck: emoji // TODO emoji in the config
                             }
                             "%user%" -> {
-                                TODO()
+                                guild != null && {
+                                    var user = event.jda.getUserById(
+                                            wordToParse.replace("<@", "").replace(">", "").replace("!", ""))
+                                    if (user == null) {
+                                        val users = event.jda.getUsersByName(wordToParse, true)
+                                        if (users.size == 1) { // 0 means no one and >1 means we don't know which one
+                                            user = users.first()
+                                        }
+                                    }
+                                    if (user != null) {
+                                        parsedArgs += user
+                                        true
+                                    } else false
+                                }.invoke()
                             }
                             "%member%" -> {
-                                TODO()
+                                guild != null && {
+                                    var member = guild.getMemberById(
+                                            wordToParse.replace("<@", "").replace(">", "").replace("!", ""))
+                                    if (member == null) {
+                                        val members = guild.getMembersByName(wordToParse, true)
+                                        if (members.size == 1) { // 0 means no one and >1 means we don't know which one
+                                            member = members.first()
+                                        }
+                                    }
+                                    if (member != null) {
+                                        parsedArgs += member
+                                        true
+                                    } else false
+                                }.invoke()
                             }
                             "%string%" -> {
                                 parsedArgs += if (index == syntaxSplit.size - 1) { // if this %string% is the last word in the pattern
@@ -70,10 +100,20 @@ object DuckyListener : ListenerAdapter() {
                                 true // any string matches %string%
                             }
                             "%biginteger%" -> {
-                                TODO()
+                                try {
+                                    parsedArgs += BigInteger(wordToParse)
+                                    true
+                                } catch (ex: NumberFormatException) {
+                                    false
+                                }
                             }
                             "%bigdecimal%" -> {
-                                TODO()
+                                try {
+                                    parsedArgs += BigDecimal(wordToParse)
+                                    true
+                                } catch (ex: NumberFormatException) {
+                                    false
+                                }
                             }
                             else -> {
                                 System.err.println("In the syntax of the command ${it.javaClass.name}"
