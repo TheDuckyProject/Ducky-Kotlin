@@ -58,6 +58,9 @@ object DuckyListener : ListenerAdapter() {
                             "%user%" -> {
                                 TODO()
                             }
+                            "%member%" -> {
+                                TODO()
+                            }
                             "%string%" -> {
                                 parsedArgs += if (index == syntaxSplit.size - 1) { // if this %string% is the last word in the pattern
                                     msgSplit.drop(index).joinToString(" ")

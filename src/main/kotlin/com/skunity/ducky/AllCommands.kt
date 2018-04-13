@@ -6,10 +6,10 @@ import com.skunity.ducky.commands.CmdSay
 
 // TODO adding commands from the `commands` package to this list with reflection perhaps?
 val allCommands = listOf(
-        // written in Java
-        CmdJavaGuys(),
-
         // written in Kotlin
         CmdHi,
-        CmdSay
+        CmdSay,
+
+        // written in Java
+        CmdJavaGuys()
 )
