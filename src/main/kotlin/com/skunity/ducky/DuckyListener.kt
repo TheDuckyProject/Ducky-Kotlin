@@ -60,20 +60,18 @@ object DuckyListener : ListenerAdapter() {
                                         wordToParse === "🦆" // :duck: emoji // TODO emoji in the config
                             }
                             "%user%" -> {
-                                guild != null && {
-                                    var user = event.jda.getUserById(
-                                            wordToParse.replace("<@", "").replace(">", "").replace("!", ""))
-                                    if (user == null) {
-                                        val users = event.jda.getUsersByName(wordToParse, true)
-                                        if (users.size == 1) { // 0 means no one and >1 means we don't know which one
-                                            user = users.first()
-                                        }
+                                var user = event.jda.getUserById(
+                                        wordToParse.replace("<@", "").replace(">", "").replace("!", ""))
+                                if (user == null) {
+                                    val users = event.jda.getUsersByName(wordToParse, true)
+                                    if (users.size == 1) { // 0 means no one and >1 means we don't know which one
+                                        user = users.first()
                                     }
-                                    if (user != null) {
-                                        parsedArgs += user
-                                        true
-                                    } else false
-                                }.invoke()
+                                }
+                                if (user != null) {
+                                    parsedArgs += user
+                                    true
+                                } else false
                             }
                             "%member%" -> {
                                 guild != null && {
