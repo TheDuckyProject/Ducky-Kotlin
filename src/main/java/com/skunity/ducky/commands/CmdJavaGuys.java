@@ -1,5 +1,6 @@
 package com.skunity.ducky.commands;
 
+import com.skunity.ducky.MainKt;
 import com.skunity.ducky.cmdapi.DuckyCommand;
 import com.skunity.ducky.cmdapi.Rank;
 import kotlin.collections.CollectionsKt;
@@ -30,6 +31,6 @@ public class CmdJavaGuys extends DuckyCommand {
                 "Remember, no *java guy*."
         };
 
-        message.getChannel().sendMessage(possibleMessages[new Random().nextInt(possibleMessages.length)]).queue();
+        MainKt.sendWithTyping(message.getChannel(), possibleMessages[new Random().nextInt(possibleMessages.length)]);
     }
 }
