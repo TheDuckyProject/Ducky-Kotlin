@@ -20,7 +20,7 @@ There were/are also a few unofficial versions that we are aware of:
 | Name | Language | Authors | Source code | Status| Official invite |
 | --- | --- | --- | --- | --- | --- |
 | DuckySk | Skript | [@minemidnight](https://github.com/minemidnight) | [open](https://github.com/TheDuckyProject/DuckySk) | incomplete, abandoned | - |
-| Ducky.sk | Skript | [@DerpyTheCoder](https://github.com/DerpyTheCoder) | closed | **being actively worked on** | - |
+| Ducky.sk | Skript | [@DerpyTheCoder](https://github.com/DerpyTheCoder) | [open](https://github.com/DerpyTheCoder/ducky.sk) | **being actively worked on** | - |
 
 ## Running
 
