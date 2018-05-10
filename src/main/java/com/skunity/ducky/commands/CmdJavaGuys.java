@@ -18,7 +18,7 @@ public class CmdJavaGuys extends DuckyCommand {
     public CmdJavaGuys() {
         name = "Java command";
         description = "For *java guys*.";
-        syntax = CollectionsKt.listOf("java guys", "*java guys*");
+        syntax = CollectionsKt.listOf("java guys");
         minRank = Rank.EveryoneOnGuilds.INSTANCE;
     }
 

@@ -9,8 +9,9 @@ import java.math.BigInteger
 
 object DuckyListener : ListenerAdapter() {
     private val whitespacePattern = Regex("\\s")
-    private val ignoredWordEndingsPattern = Regex("[!?.;,:<>()\\[\\]{}]+$")
-    private val botPattern = Regex(Ducky.config.botName.toLowerCase().map { "$it+" }.joinToString(""))
+    private val ignoredWordStartsPattern = Regex("^[~*]+")
+    private val ignoredWordEndingsPattern = Regex("[!?.;,:<>()\\[\\]{}~*]+$")
+    private val botPattern = Regex(".*" + Ducky.config.botName.toLowerCase().map { "$it+" }.joinToString("") + ".*")
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
         val msg = event.message
@@ -27,12 +28,14 @@ object DuckyListener : ListenerAdapter() {
 
         // any word can end with an unlimited amount of !?.;,:<>()[]{} and it will be ignored by the matching system
         // ^ brackets mainly because they can be used as emoticons
-        val splitNoPunctuation = msgSplit.map { it.replace(ignoredWordEndingsPattern, "") }
+        val splitNoPunctuation = msgSplit.map {
+            it.replace(ignoredWordStartsPattern, "").replace(ignoredWordEndingsPattern, "")
+        }
 
-        allCommands.forEach {
+        allCommands.forEach { cmd ->
             var parsedArgs = emptyList<Any>()
 
-            val matchedPatternIndex = it.syntax.indexOfFirst {
+            val matchedPatternIndex = cmd.syntax.indexOfFirst {
                 parsedArgs = emptyList() // resetting the variable after a possible previous iteration
 
                 val syntaxSplit = it.split(" ")
@@ -43,12 +46,20 @@ object DuckyListener : ListenerAdapter() {
                 }
 
                 syntaxSplit.withIndex().all {
-                    val syntaxWord = it.value
+                    var syntaxWord = it.value
                     val index = it.index
                     val wordNoPunctuation = splitNoPunctuation[index]
 
-                    if (syntaxWord.startsWith("%")) { // this word is a type
+                    if (syntaxWord.contains("%")) { // this word is a type
                         val wordToParse = msgSplit[index]
+
+                        val firstPercentIndex = syntaxWord.indexOf("%")
+
+                        // if the line below throws errors for you then your syntax is wrong,
+                        // specifically, you have a `%` character with no matching closing one in the same word
+                        syntaxWord = syntaxWord.substring(
+                                firstPercentIndex,
+                                syntaxWord.indexOf("%", startIndex = firstPercentIndex + 1) + 1)
 
                         return@all when (syntaxWord) {
                             "%bot%" -> {
@@ -114,7 +125,7 @@ object DuckyListener : ListenerAdapter() {
                                 }
                             }
                             else -> {
-                                System.err.println("In the syntax of the command ${it.javaClass.name}"
+                                System.err.println("In the syntax of the command ${cmd.javaClass.name}"
                                         + " there is an unknown type used - $syntaxWord")
                                 false
                             }
@@ -128,18 +139,18 @@ object DuckyListener : ListenerAdapter() {
 
             if (matchedPatternIndex == -1) return@forEach // else the syntax was matched, and we want to execute it
 
-            val matchedPattern = it.syntax[matchedPatternIndex]
+            val matchedPattern = cmd.syntax[matchedPatternIndex]
 
             val consoleLogLine = "Matched pattern '$matchedPattern' for message '$raw' by ${author.tag}"
             println("-".repeat(Math.min(100, consoleLogLine.length))) // TODO explain
             println(consoleLogLine)
 
-            if (!it.minRank.check(author, channel)) { // if the author has no permissions
+            if (!cmd.minRank.check(author, channel)) { // if the author has no permissions
                 println("Failed to execute the command because of insufficient permissions")
                 return // TODO react somehow perhaps? config option? what by default?
             }
 
-            it.execute(msg, parsedArgs)
+            cmd.execute(msg, parsedArgs)
             println("Command executed successfully")
         }
     }
