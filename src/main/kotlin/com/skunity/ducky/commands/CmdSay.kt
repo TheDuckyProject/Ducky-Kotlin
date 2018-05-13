@@ -11,8 +11,8 @@ import net.dv8tion.jda.core.entities.Message
  */
 object CmdSay : DuckyCommand() {
     init {
-        name = "Say a string" // idk
-        description = "Idk TODO somebody write something here ily"
+        name = "Say"
+        description = "Make the duck say something"
         syntax = listOf("%bot% say %string%", "%bot% reply with %string%", "%bot% repeat after me %string%")
         minRank = Rank.BotMod
     }

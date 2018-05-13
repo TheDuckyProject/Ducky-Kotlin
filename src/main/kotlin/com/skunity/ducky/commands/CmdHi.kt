@@ -11,13 +11,13 @@ import net.dv8tion.jda.core.entities.Message
  */
 object CmdHi : DuckyCommand() {
     init {
-        name = "Say Hi"
-        description = "Send a message that matches this syntax if you want me to reply \"hi\" to you"
-        syntax = listOf("hello %bot%", "howdy %bot%", "hi there %bot%", "hi %bot%", "hey %bot%")
+        name = "Say Hello"
+        description = "Send a message that matches this syntax if you want me to reply with \"hi\""
+        syntax = listOf("hello %bot%", "howdy %bot%", "hi there %bot%", "hi %bot%", "hey %bot%", "henlo %bot%")
         minRank = Rank.Everyone
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
-        message.channel.sendWithTyping("${listOf("Hi there", "Howdy", "Hiya", "Hey", "Hi").random()} ${message.author.asMention}!")
+        message.channel.sendWithTyping("${listOf("Hi there", "Howdy", "Hiya", "Hey", "Hi", "Henlo").random()} ${message.author.asMention}!")
     }
 }
