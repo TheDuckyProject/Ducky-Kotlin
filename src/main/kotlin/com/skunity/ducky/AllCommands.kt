@@ -9,6 +9,8 @@ val allCommands = listOf(
         CmdSay,
         CmdCoinFlip,
         CmdThanks,
+        CmdSayBye,
+        CmdBye,
 
         // written in Java
         CmdJavaGuys()
