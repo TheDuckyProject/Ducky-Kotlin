@@ -55,7 +55,7 @@ data class UserData(val id: String, var skuCounts: Int = 0, var penisLength: Int
  * The config file is meant to be modified only by the owner of the bot,
  * if you need to save something use `saveData`
  */
-data class Config(val token: String, val accountType: String, val botName: String,
-             val botAdminIds: List<String>, val botModIds: List<String>)
+data class BotConfig(val token: String, val accountType: String, val botName: String,
+                     val botAdminIds: List<String>, val botModIds: List<String>)
 
 data class BotData(var startCount: Int = 0)

@@ -19,8 +19,9 @@ object CmdCoinFlip : DuckyCommand() {
 
     override fun execute(message: Message, arguments: List<Any>) {
         val result = if (random.nextBoolean()) "HEADS" else "TAILS"
+        val hasLongName = (message.member?.effectiveName ?: message.author.name).length >= 10
+
         val author = message.author.asMention
-        val hasLongName = message.guild.getMember(message.author).nickname.length >= 10
 
         val messages = listOf(
                 "Ooo, $author got **$result**!",

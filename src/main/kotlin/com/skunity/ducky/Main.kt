@@ -11,7 +11,7 @@ import kotlin.concurrent.timerTask
 object Ducky {
     val startTime = LocalDateTime.now()
 
-    val config = Klaxon().parse<Config>(File("config.json"))!!
+    val config = Klaxon().parse<BotConfig>(File("config.json"))!!
     val jda = JDABuilder(AccountType.valueOf(Ducky.config.accountType))
             .setToken(Ducky.config.token)
             .addEventListener(DuckyListener)
@@ -40,7 +40,7 @@ object Ducky {
 }
 
 /**
- * The main function which does nothing on it's own, just initializes [Ducky]
+ * The main function which does nothing on its own, just initializes [Ducky]
  */
 fun main(args: Array<String>) {
     Ducky
