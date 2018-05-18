@@ -18,7 +18,7 @@ object CmdBye : DuckyCommand() {
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
-        message.channel.sendWithTyping(arrayOf(
+        message.channel.sendWithTyping(listOf(
                 ":wave:",
                 "Goodbye!",
                 "Baiii \\<3",

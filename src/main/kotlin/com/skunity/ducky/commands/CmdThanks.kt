@@ -19,12 +19,12 @@ object CmdThanks : DuckyCommand() {
 
     override fun execute(message: Message, arguments: List<Any>) {
         val author = message.author.asMention
-        message.channel.sendWithTyping(listOf("No problem, $author.",
+        message.channel.sendWithTyping(listOf(
+                "No problem, $author.",
                 "Thanks to you $author.",
                 "$author no worries!",
                 "$author <3",
-                "Lol np $author <3").random()
-
-                + (if (message.contentDisplay.endsWith(":3")) " :3" else ""))
+                "Lol np $author <3"
+        ).random() + (if (message.contentDisplay.endsWith(":3")) " :3" else ""))
     }
 }

@@ -3,11 +3,9 @@ package com.skunity.ducky
 import com.beust.klaxon.Klaxon
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
-import net.dv8tion.jda.core.MessageBuilder
 import net.dv8tion.jda.core.entities.*
 import java.io.File
 import java.time.LocalDateTime
-import java.util.*
 import kotlin.concurrent.timerTask
 
 object Ducky {
@@ -18,9 +16,14 @@ object Ducky {
             .setToken(Ducky.config.token)
             .addEventListener(DuckyListener)
             .buildBlocking()
+
     var typingChannelToEndTime = emptyMap<MessageChannel, Long>()
 
     init {
+        val data = readData<BotData>(null, "ducky")() ?: BotData()
+        data.startCount++
+        saveData(null, "ducky", data)
+
         // Here we schedule resending the "typing" messages to Discord,
         // when typing in some channel is not completed within 7 seconds
         timer.scheduleAtFixedRate(timerTask {

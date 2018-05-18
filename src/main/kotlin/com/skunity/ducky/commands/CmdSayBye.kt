@@ -18,10 +18,10 @@ object CmdSayBye : DuckyCommand() {
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
-        message.channel.sendWithTyping(arrayOf(
+        message.channel.sendWithTyping(listOf(
                 "Goodbye! :wave:",
-                "Bye everybody \\<3",
-                "Goodbye everyone! See you all later \\:)"
+                "Bye everybody <3",
+                "Goodbye everyone! See you all later :)"
         ).random())
     }
 }

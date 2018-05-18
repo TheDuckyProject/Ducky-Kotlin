@@ -1,26 +1,14 @@
 package com.skunity.ducky
 
-import com.beust.klaxon.JsonObject
-import com.beust.klaxon.Klaxon
 import net.dv8tion.jda.core.MessageBuilder
 import net.dv8tion.jda.core.entities.Message
 import net.dv8tion.jda.core.entities.MessageChannel
 import net.dv8tion.jda.core.entities.MessageEmbed
 import net.dv8tion.jda.core.entities.User
-import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.concurrent.timerTask
-
-// Utilities
-
-
-/**
- * Ducky configuration
- */
-class Config(val token: String, val accountType: String, val botName: String,
-             val botAdminIds: List<String>, val botModIds: List<String>)
 
 /**
  * A [java.util.Timer] that we use for scheduling different stuff
@@ -107,9 +95,9 @@ fun <E> List<E>.random(): E = get(random.nextInt(size))
  */
 fun <E> Array<E>.random(): E = get(random.nextInt(size))
 
-// TODO better description
 /**
- * @return "year/month/day hour:minute:second" formatted time
+ * @param str the format to use, ISO 8601 by default
+ * @return the current LocalDateTime converted to a String
  */
 fun formattedLocalTime(str: String = "yyyy-MM-dd HH:mm:ss"): String {
     val dateTimeFormatter = DateTimeFormatter.ofPattern(str)

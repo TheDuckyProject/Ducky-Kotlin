@@ -1,6 +1,8 @@
 package com.skunity.ducky
 
 import net.dv8tion.jda.core.entities.Guild
+import net.dv8tion.jda.core.entities.Member
+import net.dv8tion.jda.core.entities.User
 import net.dv8tion.jda.core.events.ReadyEvent
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
@@ -19,6 +21,10 @@ object DuckyListener : ListenerAdapter() {
         val channel = event.channel
         val raw = msg.contentRaw
         val guild: Guild? = event.guild
+
+        if (author.isBot || author.id == "383263490128871434" /* Ducky.js lol TODO just ignore him later */) {
+            return
+        }
 
         // TODO if the user is ignored, don't run the code below
 
@@ -68,11 +74,13 @@ object DuckyListener : ListenerAdapter() {
                                 // if the bot name is 'ducky', 'duuuckkyyyyy' will work too
                                 lowerNoPunctuation.matches(botPattern) ||
                                         //|| syntaxWord === Ducky.jda.selfUser.name.toString() // TODO option in the config or maybe not dunno
-                                        wordToParse === "🦆" // :duck: emoji // TODO emoji in the config
+                                        wordToParse == "🦆" // :duck: emoji // TODO emoji in the config
                             }
                             "%user%" -> {
-                                var user = event.jda.getUserById(
-                                        wordToParse.replace("<@", "").replace(">", "").replace("!", ""))
+                                val maybeCorrectId = wordToParse.replace("<@", "").replace(">", "").replace("!", "")
+                                var user: User? = null
+                                if (maybeCorrectId.matches(Regex("\\d+")))
+                                    user = event.jda.getUserById(maybeCorrectId)
                                 if (user == null) {
                                     val users = event.jda.getUsersByName(wordToParse, true)
                                     if (users.size == 1) { // 0 means no one and >1 means we don't know which one
@@ -86,8 +94,10 @@ object DuckyListener : ListenerAdapter() {
                             }
                             "%member%" -> {
                                 guild != null && {
-                                    var member = guild.getMemberById(
-                                            wordToParse.replace("<@", "").replace(">", "").replace("!", ""))
+                                    val maybeCorrectId = wordToParse.replace("<@", "").replace(">", "").replace("!", "")
+                                    var member: Member? = null
+                                    if (maybeCorrectId.matches(Regex("\\d+")))
+                                        member = guild.getMemberById(maybeCorrectId)
                                     if (member == null) {
                                         val members = guild.getMembersByName(wordToParse, true)
                                         if (members.size == 1) { // 0 means no one and >1 means we don't know which one

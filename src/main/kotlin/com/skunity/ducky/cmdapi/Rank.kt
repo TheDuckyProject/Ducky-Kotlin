@@ -21,7 +21,7 @@ abstract class Rank private constructor() {
         ChannelType.TEXT -> checkInGuild((channel as TextChannel).guild.getMember(user), channel)
         ChannelType.PRIVATE -> checkInDirectMessage(user)
         ChannelType.GROUP -> checkInDirectMessage(user) // it's fine, isn't it?
-        else -> throw IllegalAccessException("The channel ${channel.type} isn't supported, kys")
+        else -> throw IllegalArgumentException("The channel ${channel.type} isn't supported, kys")
     }
 
 

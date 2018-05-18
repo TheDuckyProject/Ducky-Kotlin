@@ -18,21 +18,14 @@ object CmdCoinFlip : DuckyCommand() {
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
-        val result = when (random.nextBoolean()) {
-            true -> "HEADS"
-            false -> "TAILS"
-        }
+        val result = if (random.nextBoolean()) "HEADS" else "TAILS"
         val author = message.author.asMention
-        val messages = arrayOf(
+        val hasLongName = message.guild.getMember(message.author).nickname.length >= 10
+
+        val messages = listOf(
                 "Ooo, $author got **$result**!",
-
                 "**$result**, $author!",
-
-                (if (message.guild.getMember(message.author).nickname.length >= 10)
-                    "$author of the long nameds flipped a coin and got **$result**!"
-                else
-                    "$author of the short nameds flipped a coin and got **$result**!"),
-
+                "$author of the ${if (hasLongName) "long" else "short"} nameds flipped a coin and got **$result**!",
                 "Quicks, quacks; $author flipped and got **$result**!"
         )
         if (message.contentDisplay.contains("please")) {
