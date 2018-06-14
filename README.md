@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/TheDuckyProject/Ducky-Kotlin.svg?branch=master)](https://travis-ci.com/TheDuckyProject/Ducky-Kotlin)
+
 Ducky v5, written in Kotlin
 
 Licensed under [The GNU General Public License v3.0](LICENSE.md)
