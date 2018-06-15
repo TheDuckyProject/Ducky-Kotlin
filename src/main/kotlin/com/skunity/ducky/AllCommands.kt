@@ -5,12 +5,15 @@ import com.skunity.ducky.commands.*
 // TODO adding commands from the `commands` package to this list with reflection perhaps?
 val allCommands = listOf(
         // written in Kotlin
-        CmdBye,
+        CmdGoodbye,
         CmdCoinFlip,
-        CmdHi,
+        CmdHello,
+        CmdOmgHi,
         CmdPenisLength,
         CmdSay,
-        CmdSayBye,
+        CmdSayGoodbye,
+        CmdSayHello,
+        CmdShrug,
         CmdShutdown,
         CmdThanks,
 

@@ -7,24 +7,19 @@ import com.skunity.ducky.sendWithTyping
 import net.dv8tion.jda.core.entities.Message
 
 /**
- * @author NanoDankster
+ * @author Nicofisi
  */
-object CmdBye : DuckyCommand() {
+object CmdOmgHi : DuckyCommand() {
     init {
-        name = "Say Bye"
-        description = "Don't go! :("
-        syntax = listOf("bye %bot%", "%bot% bye", "%bot% see you")
+        name = "Say Hello"
+        description = "Send a message that matches this syntax if you want me to reply with \"hi\""
+        syntax = listOf("hello %bot%", "howdy %bot%", "hi there %bot%", "hi %bot%", "hey %bot%", "henlo %bot%")
         minRank = Rank.Everyone
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
         message.channel.sendWithTyping(listOf(
-                ":wave:",
-                "Goodbye!",
-                "Baiii \\<3",
-                "See ya!",
-                "You're going?! Cya \\:(",
-                "Bye :wave:"
+                "omgggg! Hiya ${message.author.asMention}" // TODO more responses maybe?
         ).random())
     }
 }

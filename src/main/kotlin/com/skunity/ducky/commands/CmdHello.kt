@@ -9,7 +9,7 @@ import net.dv8tion.jda.core.entities.Message
 /**
  * @author Nicofisi
  */
-object CmdHi : DuckyCommand() {
+object CmdHello : DuckyCommand() {
     init {
         name = "Say Hello"
         description = "Send a message that matches this syntax if you want me to reply with \"hi\""
