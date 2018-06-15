@@ -11,9 +11,9 @@ import net.dv8tion.jda.core.entities.Message
  */
 object CmdOmgHi : DuckyCommand() {
     init {
-        name = "Say Hello"
-        description = "Send a message that matches this syntax if you want me to reply with \"hi\""
-        syntax = listOf("hello %bot%", "howdy %bot%", "hi there %bot%", "hi %bot%", "hey %bot%", "henlo %bot%")
+        name = "Omg Hi"
+        description = "Ducky is surprised that you're still alive, and decides to say hi"
+        syntax = listOf("omg hi %bot%")
         minRank = Rank.Everyone
     }
 

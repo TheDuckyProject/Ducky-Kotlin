@@ -6,7 +6,7 @@ import com.skunity.ducky.sendWithTyping
 import net.dv8tion.jda.core.entities.Message
 
 /**
- * @author NanoDankster
+ * @author Nicofisi
  */
 object CmdShrug : DuckyCommand() {
     init {
