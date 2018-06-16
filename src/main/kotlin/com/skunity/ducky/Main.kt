@@ -21,9 +21,9 @@ object Ducky {
     var typingChannelToEndTime = emptyMap<MessageChannel, Long>()
 
     init {
-        val data = readData<BotData>(null, "ducky")() ?: BotData()
+        val data = readBotData()
         data.startCount++
-        saveData(null, "ducky", data)
+        saveBotData(data)
 
         // Here we schedule resending the "typing" messages to Discord,
         // when typing in some channel is not completed within 7 seconds
@@ -41,6 +41,13 @@ object Ducky {
         Thread {
             CmdDoMath // load the math library asynchronously
         }.start()
+
+        // Every minute adds one minute to the total uptime of Ducky and saves it
+        timer.scheduleAtFixedRate(timerTask {
+            val duckyData = readBotData()
+            duckyData.totalUptime += 60 * 1000
+            saveBotData(duckyData)
+        }, 60 * 1000, 60 * 1000)
     }
 }
 

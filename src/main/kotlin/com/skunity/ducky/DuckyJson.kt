@@ -8,6 +8,9 @@ fun jsonFile(dirName: String?, fileName: String): File {
     return File(if (dirName == null) "data/$fileName.json" else "data/$dirName/$fileName.json")
 }
 
+
+// General data reading & saving
+
 inline fun <reified T> readData(dirName: String?, fileName: String) = {
     val jsonFile = jsonFile(dirName, fileName)
     if (jsonFile.exists() && jsonFile.isFile) {
@@ -27,6 +30,9 @@ fun saveData(dirName: String?, fileName: String, data: Any) {
     jsonFile.writeText(Klaxon().toJsonString(data))
 }
 
+
+// UserData reading & saving
+
 fun readUserData(userId: String): UserData {
     require(userId.matches(Regex("\\d+")))
 
@@ -43,6 +49,17 @@ fun saveUserData(userId: String, data: UserData) {
 
 fun saveUserData(user: User, data: UserData) = saveUserData(user.id, data)
 
+
+// BotData reading & saving
+
+fun saveBotData(data: BotData) {
+    saveData(null, "ducky", data)
+}
+
+fun readBotData(): BotData {
+    return readData<BotData>(null, "ducky")() ?: BotData()
+}
+
 // Json object classes come below
 
 /**
@@ -58,4 +75,8 @@ data class UserData(val id: String, var skuCounts: Int = 0, var penisLength: Int
 data class BotConfig(val token: String, val accountType: String, val botName: String,
                      val botAdminIds: List<String>, val botModIds: List<String>)
 
-data class BotData(var startCount: Int = 0)
+/**
+ * @property startCount how many times the bot was successfully enabled
+ * @property totalUptime how many time, in milliseconds, the bot has been running in total. Updated every minute
+ */
+data class BotData(var startCount: Int = 0, var totalUptime: Long = 0)
