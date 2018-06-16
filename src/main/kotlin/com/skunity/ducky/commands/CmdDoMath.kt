@@ -2,12 +2,12 @@ package com.skunity.ducky.commands
 
 import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.cmdapi.Rank
+import com.skunity.ducky.escape
 import com.skunity.ducky.sendWithTyping
 import net.dv8tion.jda.core.entities.Message
-import java.io.File
-import java.io.FileReader
 import javax.script.Invocable
 import javax.script.ScriptEngineManager
+import javax.script.ScriptException
 
 /**
  * @author Nicofisi
@@ -22,14 +22,18 @@ object CmdDoMath : DuckyCommand() {
         syntax = listOf("do math %string%", "do maths %string%") // %bot% or no?
         minRank = Rank.Everyone
 
-        engine.eval(FileReader(File(javaClass.classLoader.getResource("math.min.js").file))) // load math.js
+        engine.eval(javaClass.classLoader.getResource("math.min.js").readText()) // load math.js
         engine.eval("var parser = math.parser();")
         engine.eval("function eval(expr) { return parser.eval(expr) }")
         engine.eval("function format(expr, precision) { return math.format(expr, precision) }")
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
-        message.channel.sendWithTyping("Answer: " + eval(arguments[0] as String))
+        try {
+            message.channel.sendWithTyping("Answer: " + eval(arguments[0] as String).escape)
+        } catch (ex: ScriptException) {
+            message.channel.sendWithTyping(ex.message?.escape ?: "An unknown error has occurred")
+        }
     }
 
     private fun eval(expr: String): String {

@@ -13,7 +13,8 @@ object CmdOmgHi : DuckyCommand() {
     init {
         name = "Omg Hi"
         description = "Ducky is surprised that you're still alive, and decides to say hi"
-        syntax = listOf("omg hi %bot%")
+        syntax = listOf("omg hello %bot%", "omg howdy %bot%", "omg hi there %bot%", "omg hi %bot%", "omg hey %bot%",
+                "omg henlo %bot%", "omg hiya %bot%", "omg heya %bot%")
         minRank = Rank.Everyone
     }
 

@@ -1,9 +1,10 @@
 package com.skunity.ducky
 
 import com.beust.klaxon.Klaxon
+import com.skunity.ducky.commands.CmdDoMath
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.core.entities.MessageChannel
 import java.io.File
 import java.time.LocalDateTime
 import kotlin.concurrent.timerTask
@@ -36,6 +37,10 @@ object Ducky {
                 }
             }
         }, 100, 7000)
+
+        Thread {
+            CmdDoMath // load the math library asynchronously
+        }.start()
     }
 }
 

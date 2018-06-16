@@ -96,6 +96,21 @@ fun <E> List<E>.random(): E = get(random.nextInt(size))
 fun <E> Array<E>.random(): E = get(random.nextInt(size))
 
 /**
+ * Replaces every @everyone and @here with something that looks exactly the same, except
+ * the `e` letter is replaced with a russian one, what causes Discord not to mention everyone/online people
+ */
+val String.noEveryoneHere
+    get() = replace("@everyone", "@\u0435veryone").replace("@here", "@h\u0435re")
+
+/**
+ * Calls [noEveryoneHere] on the string, and then replaces every `>` with a `\>` - what discards all mentions,
+ * and every tilde with a \tilde, what makes code blocks impossible to escape (and even if someone manages to do it,
+ * in a way that I didn't think of, they still won't be able to do any harm)
+ */
+val String.escape
+    get() = replace(">", "\\>").replace("`", "\\`").noEveryoneHere
+
+/**
  * @param str the format to use, ISO 8601 by default
  * @return the current LocalDateTime converted to a String
  */

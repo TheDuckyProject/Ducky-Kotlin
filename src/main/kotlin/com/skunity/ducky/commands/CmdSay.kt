@@ -2,7 +2,7 @@ package com.skunity.ducky.commands
 
 import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.cmdapi.Rank
-import com.skunity.ducky.random
+import com.skunity.ducky.noEveryoneHere
 import com.skunity.ducky.sendWithTyping
 import net.dv8tion.jda.core.entities.Message
 
@@ -18,7 +18,7 @@ object CmdSay : DuckyCommand() {
     }
 
     override fun execute(message: Message, arguments: List<Any>) {
-        message.channel.sendWithTyping(arguments.first() as String)
+        message.channel.sendWithTyping((arguments.first() as String).noEveryoneHere)
         message.delete().queue()
     }
 }

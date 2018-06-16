@@ -13,7 +13,8 @@ object CmdHello : DuckyCommand() {
     init {
         name = "Say Hello"
         description = "Send a message that matches this syntax if you want me to reply with \"hi\""
-        syntax = listOf("hello %bot%", "howdy %bot%", "hi there %bot%", "hi %bot%", "hey %bot%", "henlo %bot%")
+        syntax = listOf("hello %bot%", "howdy %bot%", "hi there %bot%", "hi %bot%", "hey %bot%", "henlo %bot%",
+                "omg hiya %bot%", "omg heya %bot%")
         minRank = Rank.Everyone
     }
 
