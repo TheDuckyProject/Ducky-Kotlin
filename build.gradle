@@ -22,6 +22,8 @@ apply plugin: 'kotlin' // it doesn't work when in plugins{} for some reason
 group 'com.skunity'
 version '0.1'
 
+mainClassName = "com.skunity.ducky.MainKt"
+
 sourceCompatibility = 1.8
 
 repositories {
@@ -67,7 +69,7 @@ shadowJar {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.skunity.ducky.MainKt'
+        attributes 'Main-Class': mainClassName
         attributes 'Name': name
         attributes 'Specification-Title': name
         attributes 'Specification-Version': version
