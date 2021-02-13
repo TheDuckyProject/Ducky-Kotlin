@@ -13,7 +13,7 @@ plugins {
     id 'java' // idk
     id 'idea' // idk
     id 'application' // for ./gradlew run
-    id 'com.github.johnrengelman.shadow' version '2.0.1' // for ./gradlew shadowJar
+    id 'com.github.johnrengelman.shadow' version '6.1.0' // for ./gradlew shadowJar
     id 'com.sedmelluq.jdaction' version "1.0.99-beta3" // warns when we forget a .queue() or .complete() or .submit()
 }
 
