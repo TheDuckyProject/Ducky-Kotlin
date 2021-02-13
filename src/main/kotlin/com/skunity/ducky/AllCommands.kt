@@ -17,6 +17,7 @@ val allCommands = listOf(
         CmdShrug,
         CmdShutdown,
         CmdThanks,
+        CmdHiIm,
 
         // written in Java
         CmdJavaGuys()
