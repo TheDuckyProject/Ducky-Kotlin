@@ -1,18 +1,19 @@
 package com.skunity.ducky
 
-import net.dv8tion.jda.core.entities.Guild
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.entities.User
-import net.dv8tion.jda.core.events.ReadyEvent
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.hooks.ListenerAdapter
+import net.dv8tion.jda.api.entities.Guild
+import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.User
+import net.dv8tion.jda.api.events.ReadyEvent
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.math.BigDecimal
 import java.math.BigInteger
 
 object DuckyListener : ListenerAdapter() {
     private val whitespacePattern = Regex("\\s")
     private val ignoredWordStartsPattern = Regex("^[~*]+")
-    private val ignoredWordEndingsPattern = Regex("[!?.;,:<>()\\[\\]{}~*]+$")
+    private val ignoredWordEndingsPattern = Regex("[@!?.;,:<>()\\[\\]{}~*]+$")
+    private val ignoredBotPatternStartsPattern = Regex("^[@!?.;,:<>()\\[\\]{}~*]+")
     private val botPattern = Regex(".*" + Ducky.config.botName.toLowerCase().map { "$it+" }.joinToString("") + ".*")
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
@@ -71,8 +72,14 @@ object DuckyListener : ListenerAdapter() {
                             "%bot%" -> {
                                 val lowerNoPunctuation = wordNoPunctuation.toLowerCase()
 
+                                println(lowerNoPunctuation.replace(ignoredBotPatternStartsPattern, ""))
+
                                 // if the bot name is 'ducky', 'duuuckkyyyyy' will work too
                                 lowerNoPunctuation.matches(botPattern) ||
+                                        lowerNoPunctuation.replace(
+                                            ignoredBotPatternStartsPattern,
+                                            ""
+                                        ) == msg.jda.selfUser.id ||
                                         //|| syntaxWord === Ducky.jda.selfUser.name.toString() // TODO option in the config or maybe not dunno
                                         wordToParse == "🦆" // :duck: emoji // TODO emoji in the config
                             }
@@ -151,7 +158,7 @@ object DuckyListener : ListenerAdapter() {
 
             val matchedPattern = cmd.syntax[matchedPatternIndex]
 
-            val consoleLogLine = "Matched pattern '$matchedPattern' for message '$raw' by ${author.tag}"
+            val consoleLogLine = "Matched pattern '$matchedPattern' for message '$raw' by ${author.asTag}"
             println("-".repeat(Math.min(100, consoleLogLine.length))) // TODO explain
             println(consoleLogLine)
 
@@ -166,7 +173,7 @@ object DuckyListener : ListenerAdapter() {
     }
 
     override fun onReady(event: ReadyEvent) {
-        println("The app has been enabled - running using the ${event.jda.selfUser.tag} account")
+        println("The app has been enabled - running using the ${event.jda.selfUser.asTag} account")
     }
 }
 

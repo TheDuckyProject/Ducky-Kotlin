@@ -1,8 +1,8 @@
 package com.skunity.ducky.cmdapi
 
 import com.skunity.ducky.Ducky
-import net.dv8tion.jda.core.Permission
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.api.Permission
+import net.dv8tion.jda.api.entities.*
 
 abstract class Rank private constructor() {
     /**
@@ -17,8 +17,8 @@ abstract class Rank private constructor() {
      */
     abstract fun checkInDirectMessage(user: User): Boolean
 
-    fun check(user: User, channel: MessageChannel) = when (channel.type) {
-        ChannelType.TEXT -> checkInGuild((channel as TextChannel).guild.getMember(user), channel)
+    fun check(user: User, channel: MessageChannel): Boolean = when (channel.type) {
+        ChannelType.TEXT -> (channel as TextChannel).guild.getMember(user)?.let { checkInGuild(it, channel) } ?: false
         ChannelType.PRIVATE -> checkInDirectMessage(user)
         ChannelType.GROUP -> checkInDirectMessage(user) // it's fine, isn't it?
         else -> throw IllegalArgumentException("The channel ${channel.type} isn't supported, kys")

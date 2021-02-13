@@ -2,21 +2,20 @@ package com.skunity.ducky
 
 import com.beust.klaxon.Klaxon
 import com.skunity.ducky.commands.CmdDoMath
-import net.dv8tion.jda.core.AccountType
-import net.dv8tion.jda.core.JDABuilder
-import net.dv8tion.jda.core.entities.MessageChannel
+import net.dv8tion.jda.api.JDABuilder
+import net.dv8tion.jda.api.entities.MessageChannel
 import java.io.File
 import java.time.LocalDateTime
 import kotlin.concurrent.timerTask
 
 object Ducky {
-    val startTime = LocalDateTime.now()
+    val startTime: LocalDateTime = LocalDateTime.now()
 
     val config = Klaxon().parse<BotConfig>(File("config.json"))!!
-    val jda = JDABuilder(AccountType.valueOf(Ducky.config.accountType))
-            .setToken(Ducky.config.token)
-            .addEventListener(DuckyListener)
-            .buildBlocking()
+    val jda = JDABuilder.createDefault(Ducky.config.token)
+        .addEventListeners(DuckyListener)
+        .build()
+        .awaitReady()
 
     var typingChannelToEndTime = emptyMap<MessageChannel, Long>()
 
@@ -54,6 +53,6 @@ object Ducky {
 /**
  * The main function which does nothing on its own, just initializes [Ducky]
  */
-fun main(args: Array<String>) {
+fun main() {
     Ducky
 }

@@ -3,7 +3,7 @@ package com.skunity.ducky.commands
 import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.cmdapi.Rank
 import com.skunity.ducky.timer
-import net.dv8tion.jda.core.entities.Message
+import net.dv8tion.jda.api.entities.Message
 import java.util.*
 
 /**

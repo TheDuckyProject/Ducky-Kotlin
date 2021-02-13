@@ -1,10 +1,9 @@
 package com.skunity.ducky
 
-import net.dv8tion.jda.core.MessageBuilder
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.entities.MessageChannel
-import net.dv8tion.jda.core.entities.MessageEmbed
-import net.dv8tion.jda.core.entities.User
+import net.dv8tion.jda.api.MessageBuilder
+import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.MessageChannel
+import net.dv8tion.jda.api.entities.MessageEmbed
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -77,13 +76,6 @@ fun MessageChannel.sendWithTyping(embed: MessageEmbed) {
  * An extension method which makes is possible to do `(5..10).random()` to get a random integer between 5 and 10
  */
 fun ClosedRange<Int>.random() = random.nextInt((endInclusive + 1) - start) + start
-
-/**
- * An extension method which returns `Name#discrim`, like `Nicofisi#4467`,
- * which doesn't technically mention the user when sent in a message
- */
-val User.tag
-    get() = "$name#$discriminator"
 
 /**
  * @return a random element from the list

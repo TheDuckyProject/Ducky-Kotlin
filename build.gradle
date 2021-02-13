@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.3.20'
 
     repositories {
         mavenCentral()
@@ -14,15 +14,13 @@ plugins {
     id 'idea' // idk
     id 'application' // for ./gradlew run
     id 'com.github.johnrengelman.shadow' version '2.0.1' // for ./gradlew shadowJar
-    id 'com.sedmelluq.jdaction' version "1.0.2" // warns when we forget a .queue() or .complete() or .submit()
+    id 'com.sedmelluq.jdaction' version "1.0.99-beta3" // warns when we forget a .queue() or .complete() or .submit()
 }
 
 apply plugin: 'kotlin' // it doesn't work when in plugins{} for some reason
 
 group 'com.skunity'
 version '0.1'
-
-mainClassName = "com.skunity.ducky.MainKt"
 
 sourceCompatibility = 1.8
 
@@ -36,13 +34,19 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     // the Java Discord API library
-    compile "net.dv8tion:JDA:3.6.0_354"
+    compile "net.dv8tion:JDA:4.2.0_228"
 
     // a nice JSON library
     compile "com.beust:klaxon:2.1.14"
 
     // a library for logging used by JDA
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    compile "org.slf4j:slf4j-simple:1.7.25"
+
+    // a dependency of the file downloading library below
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+
+    // for file downloading in the download command
+    compile "com.github.kittinunf.fuel:fuel:2.0.1"
 
     // something for unit testing that we don't really use at the moment
     // testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -63,7 +67,7 @@ shadowJar {
 
 jar {
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes 'Main-Class': 'com.skunity.ducky.MainKt'
         attributes 'Name': name
         attributes 'Specification-Title': name
         attributes 'Specification-Version': version

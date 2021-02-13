@@ -4,7 +4,7 @@ import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.cmdapi.Rank
 import com.skunity.ducky.noEveryoneHere
 import com.skunity.ducky.sendWithTyping
-import net.dv8tion.jda.core.entities.Message
+import net.dv8tion.jda.api.entities.Message
 
 /**
  * @author Nicofisi

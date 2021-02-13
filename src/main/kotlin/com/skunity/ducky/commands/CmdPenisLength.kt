@@ -1,10 +1,12 @@
 package com.skunity.ducky.commands
 
-import com.skunity.ducky.*
 import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.cmdapi.Rank
-import net.dv8tion.jda.core.entities.Message
-import net.dv8tion.jda.core.entities.User
+import com.skunity.ducky.readUserData
+import com.skunity.ducky.saveUserData
+import com.skunity.ducky.sendWithTyping
+import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.User
 import java.util.*
 
 /**
@@ -38,6 +40,6 @@ object CmdPenisLength : DuckyCommand() {
 
         val penis = "8${"=".repeat(data.penisLength)}D" // B===========D
 
-        message.channel.sendWithTyping("Penis length of ${argUser.tag} is $penis :open_mouth:")
+        message.channel.sendWithTyping("Penis length of ${argUser.asTag} is $penis :open_mouth:")
     }
 }

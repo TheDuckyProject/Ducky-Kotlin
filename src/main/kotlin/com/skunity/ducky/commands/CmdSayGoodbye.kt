@@ -4,7 +4,7 @@ import com.skunity.ducky.cmdapi.DuckyCommand
 import com.skunity.ducky.cmdapi.Rank
 import com.skunity.ducky.random
 import com.skunity.ducky.sendWithTyping
-import net.dv8tion.jda.core.entities.Message
+import net.dv8tion.jda.api.entities.Message
 
 /**
  * The difference between this command and [CmdGoodbye] is that [CmdSay] makes Ducky reply to *you*,

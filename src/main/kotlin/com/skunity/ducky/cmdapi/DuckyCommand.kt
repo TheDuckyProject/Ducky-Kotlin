@@ -1,6 +1,6 @@
 package com.skunity.ducky.cmdapi
 
-import net.dv8tion.jda.core.entities.Message
+import net.dv8tion.jda.api.entities.Message
 
 // TODO docs
 abstract class DuckyCommand {
