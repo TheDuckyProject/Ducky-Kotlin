@@ -8,6 +8,7 @@ val allCommands = listOf(
         CmdCoinFlip,
         CmdDoMath,
         CmdGoodbye,
+        CmdDownloadFile,
         CmdHello,
         CmdOmgHi,
         CmdPenisLength,
