@@ -14,8 +14,8 @@ Anyways, here are all the official ducks that ever existed:
 | Ducky v1 | JavaScript | [@nfell2009](https://github.com/nfell2009) | closed | abandoned | - |
 | Ducky v2 | JavaScript | [@nfell2009](https://github.com/nfell2009) and [@TheLimeGlass](https://github.com/TheLimeGlass) | [open](https://github.com/TheDuckyProject/DuckyJS) | abandoned | - |
 | Ducky v3 | JavaScript | [@nfell2009](https://github.com/nfell2009) | closed | never finished, abandoned | - |
-| Ducky v4 | JavaScript | [@Nicofisi](https://github.com/Nicofisi) | closed | **currently running as official** | - |
-| **Ducky v5 (this version)** | Kotlin | [click to check](https://github.com/TheDuckyProject/Ducky-Kotlin/graphs/contributors) | [open](.) | **being actively worked on** | *Soon™* |
+| Ducky v4 | JavaScript | [@Nicofisi](https://github.com/Nicofisi) | closed | replaced | - |
+| **Ducky v5 (this version)** | Kotlin | [click to check](https://github.com/TheDuckyProject/Ducky-Kotlin/graphs/contributors) | [open](.) | **currently running as official** | *Soon™* |
 
 There were/are also a few unofficial versions that we are aware of:
 
